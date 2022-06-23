@@ -24,7 +24,6 @@ public class IsometricCamera : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
         float distance = 25;
 
         transform.position = target.transform.position + new Vector3(-30, 25, -30);
