@@ -29,7 +29,9 @@ public class MoveToClickPos : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.ScreenPointToRay(new Vector3(mouse.position.ReadValue().x,mouse.position.ReadValue().y)),out hit,100))
             {
-                agent.destination = hit.point;
+                Vector3 destination = hit.point;
+                destination = new Vector3(Mathf.Round(destination.x), destination.y, Mathf.Round(destination.z));
+                agent.destination = destination;
                 if ((agent.destination - transform.position).magnitude > 3f)
                 {
                     agent.speed = SprintSpeed;
