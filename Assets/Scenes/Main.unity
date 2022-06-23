@@ -453,26 +453,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4548982051716329330, guid: 34e1a690374d79d40a42fd9e65743f80,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[0].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4548982051716329330, guid: 34e1a690374d79d40a42fd9e65743f80,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4548982051716329330, guid: 34e1a690374d79d40a42fd9e65743f80,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4548982051716329330, guid: 34e1a690374d79d40a42fd9e65743f80,
-        type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4548982051716329332, guid: 34e1a690374d79d40a42fd9e65743f80,
         type: 3}
       propertyPath: m_Enabled
@@ -493,8 +473,7 @@ PrefabInstance:
       propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4548982051716329333, guid: 34e1a690374d79d40a42fd9e65743f80, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 34e1a690374d79d40a42fd9e65743f80, type: 3}
 --- !u!1 &2066572708 stripped
 GameObject:
