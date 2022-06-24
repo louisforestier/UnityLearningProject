@@ -11,6 +11,7 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     private Outline outline;
 
     //TODO: https://www.youtube.com/watch?v=fUiNDDcU_I4
+    // https://forum.unity.com/threads/question-about-rpg-movement.710078/ https://gingkoapp.com/how-to-navmesh-movement-range.html
 
     private NavMeshAgent player;
     private void Awake()
