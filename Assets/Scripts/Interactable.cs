@@ -10,13 +10,15 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 {
     private Outline outline;
 
-    //TODO: https://www.youtube.com/watch?v=fUiNDDcU_I4
+    //TODO:
+    // grid movement: https://www.youtube.com/watch?v=fUiNDDcU_I4
     // https://forum.unity.com/threads/question-about-rpg-movement.710078/ https://gingkoapp.com/how-to-navmesh-movement-range.html
+    // group movement: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/pathfinding-and-local-avoidance-for-rpgrts-games-using-unity-r3703/
 
-    private NavMeshAgent player;
+    private GameObject player;
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Start is called before the first frame update
@@ -39,11 +41,24 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log("on pointer down");
+        StartCoroutine(AddInteraction(player));
     }
 
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator AddInteraction(GameObject other)
+    {
+        Debug.Log("OnTriggerEnter interactable");
+        if (other.GetComponent<Player>() is Player p)
+        {
+            yield return new WaitUntil(() => p.ReachedDest());
+            Interact(other.gameObject);
+        }
+    }
+
+
+    protected virtual void Interact(GameObject other)
     {
         Debug.Log("interact");
     }
+
+
 }
