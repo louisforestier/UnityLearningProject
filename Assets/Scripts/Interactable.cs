@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Collider))]
-public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
+public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Outline outline;
     private bool clicked;
@@ -18,9 +18,10 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public bool Select
     {
-        get => outline.enabled;
+        get => clicked;
         set
         {
+            clicked = value;
             outline.enabled=value;
         }
     }
@@ -32,7 +33,7 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         Debug.Log("interactable start");
         outline = GetComponent<Outline>();
@@ -50,33 +51,8 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             outline.enabled = false;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        StartCoroutine(AddInteraction(player));
-    }
 
-    private IEnumerator AddInteraction(GameObject other)
-    {
-        Debug.Log("OnTriggerEnter interactable");
-        if (other.GetComponent<Player>() is Player p)
-        {
-            if (p.interaction != null)
-            {
-                Debug.Log(p.interaction); 
-                Debug.Log("pk"); 
-                p.interaction.GetComponent<Interactable>().Select = false;
-            }
-            clicked = true;
-            p.interaction = gameObject;
-            yield return new WaitUntil(() => p.ReachedDest(transform.position));
-            Interact(other.gameObject);
-            clicked = false;
-            outline.enabled = false;
-        }
-    }
-
-
-    protected virtual void Interact(GameObject other)
+    public virtual void Interact(GameObject other)
     {
         outline.enabled = false;
         Debug.Log("interact");
