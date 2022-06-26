@@ -9,12 +9,22 @@ using UnityEngine.EventSystems;
 public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
 {
     private Outline outline;
+    private bool clicked;
 
     //TODO:
     // grid movement: https://www.youtube.com/watch?v=fUiNDDcU_I4
     // https://forum.unity.com/threads/question-about-rpg-movement.710078/ https://gingkoapp.com/how-to-navmesh-movement-range.html
     // group movement: https://www.gamedev.net/articles/programming/general-and-gameplay-programming/pathfinding-and-local-avoidance-for-rpgrts-games-using-unity-r3703/
 
+    public bool Select
+    {
+        get => outline.enabled;
+        set
+        {
+            outline.enabled=value;
+        }
+    }
+    
     private GameObject player;
     private void Awake()
     {
@@ -36,7 +46,8 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        outline.enabled = false;
+        if (!clicked)
+            outline.enabled = false;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -49,14 +60,25 @@ public class Interactable : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         Debug.Log("OnTriggerEnter interactable");
         if (other.GetComponent<Player>() is Player p)
         {
-            yield return new WaitUntil(() => p.ReachedDest());
+            if (p.interaction != null)
+            {
+                Debug.Log(p.interaction); 
+                Debug.Log("pk"); 
+                p.interaction.GetComponent<Interactable>().Select = false;
+            }
+            clicked = true;
+            p.interaction = gameObject;
+            yield return new WaitUntil(() => p.ReachedDest(transform.position));
             Interact(other.gameObject);
+            clicked = false;
+            outline.enabled = false;
         }
     }
 
 
     protected virtual void Interact(GameObject other)
     {
+        outline.enabled = false;
         Debug.Log("interact");
     }
 
